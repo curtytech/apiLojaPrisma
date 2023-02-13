@@ -1,0 +1,14 @@
+
+
+// iniciar api
+npm run dev
+
+// Executar Migrate
+yarn prisma migrate dev
+
+// Reset Migrate
+npx prisma migrate reset 
+
+
+// Executar Prisma Studio
+yarn prisma studio
