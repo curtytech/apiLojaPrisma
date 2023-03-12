@@ -1,17 +1,23 @@
 -- CreateTable
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "login" TEXT NOT NULL,
-    "perfil" TEXT,
+    "profile" INTEGER NOT NULL,
     "password" TEXT,
     "first_name" TEXT,
     "last_name" TEXT,
     "email" TEXT NOT NULL,
+    "cpf" INTEGER,
     "idGoogle" TEXT,
     "picture" TEXT,
+    "zipcode" TEXT,
+    "address" TEXT,
+    "number" TEXT,
+    "city" TEXT,
+    "reference" TEXT,
+    "state" TEXT,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -20,8 +26,16 @@ CREATE TABLE "users" (
 CREATE TABLE "stores" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "picture" TEXT,
+    "zipcode" TEXT,
+    "address" TEXT,
+    "number" TEXT,
+    "city" TEXT,
+    "reference" TEXT,
+    "state" TEXT,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
 
     CONSTRAINT "stores_pkey" PRIMARY KEY ("id")
 );
@@ -56,6 +70,7 @@ CREATE TABLE "categories" (
     "name" TEXT NOT NULL,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
 
     CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
 );
@@ -78,8 +93,22 @@ CREATE TABLE "products_categories" (
     CONSTRAINT "products_categories_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "cart" (
+    "id" SERIAL NOT NULL,
+    "id_product" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "id_user" INTEGER NOT NULL,
+
+    CONSTRAINT "cart_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_cpf_key" ON "users"("cpf");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_idGoogle_key" ON "users"("idGoogle");
@@ -98,3 +127,9 @@ ALTER TABLE "products_categories" ADD CONSTRAINT "products_categories_id_product
 
 -- AddForeignKey
 ALTER TABLE "products_categories" ADD CONSTRAINT "products_categories_id_category_fkey" FOREIGN KEY ("id_category") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "cart" ADD CONSTRAINT "cart_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "cart" ADD CONSTRAINT "cart_id_product_fkey" FOREIGN KEY ("id_product") REFERENCES "products"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

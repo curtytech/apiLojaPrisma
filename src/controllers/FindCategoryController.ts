@@ -9,7 +9,7 @@ export class FindCategoryController {
       where: {
         id
       },include: {
-         ProductCategory: true
+         ProductCategory: true,
       }
     });
 

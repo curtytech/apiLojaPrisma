@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
 
-export class GetAllCategoryController {
+export class GetAllStoreController {
   async handle(request: Request, response: Response) {
     // let id = parseInt();
 
-    const category = await prismaClient.category.findMany({
+    const store = await prismaClient.store.findMany({
         where: { status: true },
       });
 
-    return response.json(category);
+    return response.json(store);
   }
 }

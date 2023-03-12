@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
 
-export class GetAllProductController {
+export class GetAllCartController {
   async handle(request: Request, response: Response) {
 
-    const product = await prismaClient.product.findMany({
-      where: { status: true },
+    const cart = await prismaClient.cart.findMany({
+      where: { id_user: 1 },
       include: {
-        store_product: true
+        product: true
       },
     });
 
-    return response.json(product);
+    return response.json(cart);
   }
 }

@@ -3,15 +3,18 @@ import { prismaClient } from "../database/prismaClient";
 
 export class CreateProductWithExistCategory {
   async handle(request: Request, response: Response) {
-    const { name, bar_code, price, id_category } = request.body;
+    const { name, description, price, stock, picture0, id_category, id_store } = request.body;
 
     const productCategory = await prismaClient.productCategory.create({
       data: {
         product: {
           create: {
             name,
-            bar_code,
+            description,
             price,
+            stock,
+            id_store,
+            picture0,
           },
         },
         category: {

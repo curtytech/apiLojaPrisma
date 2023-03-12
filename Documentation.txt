@@ -9,6 +9,8 @@ yarn prisma migrate dev
 // Reset Migrate
 npx prisma migrate reset 
 
+// Executar Seeder
+yarn prisma db seed
 
 // Executar Prisma Studio
 yarn prisma studio
