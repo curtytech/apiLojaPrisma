@@ -19,6 +19,9 @@ import { CreateUserController } from "./controllers/CreateUserController";
 import { CreateProductCategoryController } from "./controllers/CreateProductCategoryController";
 import { CreateProductWithExistCategory } from "./controllers/CreateProductWithExistCategory";
 
+// Edit Imports
+import { EditUserController } from "./controllers/EditUserController";
+
 //Delete Imports
 import { DeleteCartController } from "./controllers/DeleteCartController";
 
@@ -38,6 +41,9 @@ const login = new LoginController();
 
 // Delete Classes
 const deleteCart = new DeleteCartController();
+
+// User Edit
+const editUser = new EditUserController();
 
 // Create Classes
 const createCart = new CreateCartController();
@@ -66,6 +72,9 @@ router.post("/createProduct", createProduct.handle);
 router.post("/createStore", createStore.handle);
 router.post("/createCategory", createCategory.handle);
 router.post("/createUser", createUser.handle);
+
+//Edit User
+router.post("/editUser/:id", editUser.handle);
 
 //Count Routes
 router.get("/getCountCart/:id", getCountCart.handle);
